@@ -28,7 +28,7 @@ POST http://localhost:3000/auth/signup
 Request Header: content-type →application/json
 Request Body:
 
-{"name":"Muthuselvi","email":"muthuselvi2018@gmail.com","password":"Password!2"}
+{"name":"Muthuselvi","email":"muthuselvi@gmail.com","password":"Password!2"}
 
 Success Response:
 
@@ -47,7 +47,7 @@ POST http://localhost:3000/auth/login
 Request Header: content-type →application/json
 Request Body:
 
-{"email":"muthuselvi2018@gmail.com","password":"Password!2"}
+{"email":"muthuselvi@gmail.com","password":"Password!2"}
 
 Success Response:
 
