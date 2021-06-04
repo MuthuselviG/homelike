@@ -119,46 +119,49 @@ exports.fetchFavoriteApartments = (req, res) => {
 exports.searchApartments = (req, res) => {
     let query = req.query;
 
-    let q = {}; 
+    let q = {};
 
-    if (query && Object.keys(query).length !== 0 && query.constructor === Object) {
-        q["$and"] = [];
-    }
+    if ((query.distance || query.lon || query.lat) && !(query.distance && query.lon && query.lat)) {
+        res.status(409).send({ "message": "Distance, lat, lon all three mandatory for distance filter" });
+    } else {
+        if (query && Object.keys(query).length !== 0 && query.constructor === Object) {
+            q["$and"] = [];
+        }
 
-    if (query.distance && query.lon && query.lat) {
-        q["$and"].push({
-            geo:
-            {
-                $near:
+        if (query.distance && query.lon && query.lat) {
+            q["$and"].push({
+                geo:
                 {
-                    $geometry: { type: "Point", coordinates: [query.lon, query.lat] }, //lon,lat
-                    $maxDistance: query.distance*1000
+                    $near:
+                    {
+                        $geometry: { type: "Point", coordinates: [query.lon, query.lat] }, //lon,lat
+                        $maxDistance: query.distance * 1000
+                    }
                 }
-            }
-        });
-    }
-    if (query.city) {
-        q["$and"].push({ city: query.city });
-    }
-    if (query.country) {
-        q["$and"].push({ country: query.country });
-    }
-    if (query.rooms) {
-        q["$and"].push({ noOfRooms: query.rooms });
-    }
-   
-    Apartment.find(q)
-    .then((data) => {
-        logger.info("Searched apartments");
-        res.status(200).send({ "apartments": data });
-    })
-    .catch((err) => {
-        logger.error("Search apartments error " + err.message);
-        res.status(500).send({
-            message: err.message ||
-                "Search apartments error ",
-        });
-    });
+            });
+        }
+        if (query.city) {
+            q["$and"].push({ city: query.city });
+        }
+        if (query.country) {
+            q["$and"].push({ country: query.country });
+        }
+        if (query.rooms) {
+            q["$and"].push({ noOfRooms: query.rooms });
+        }
 
+        Apartment.find(q)
+            .then((data) => {
+                logger.info("Searched apartments");
+                res.status(200).send({ "apartments": data });
+            })
+            .catch((err) => {
+                logger.error("Search apartments error " + err.message);
+                res.status(500).send({
+                    message: err.message ||
+                        "Search apartments error ",
+                });
+            });
+    }
 };
 

@@ -11,8 +11,17 @@
  */
 
 Assumption - Node latest Version & mongo installed
+
+.env file with PORT,MONGO,TOKEN_SECRET,TOKEN_LIFE
+Example: PORT=3000
+MONGO=mongodb://localhost:27017/homelike
+TOKEN_SECRET=09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611
+TOKEN_LIFE=60h
+
 npm install
 npm start
+
+
 
 POSTMAN collection link https://www.getpostman.com/collections/7de0e5ad72ec6f201e32
 

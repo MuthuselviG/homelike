@@ -17,7 +17,7 @@ app.use(cors());
 var session = require("express-session");
 var cookieParser = require("cookie-parser");
 app.use(cookieParser());
-app.use(session({ secret: process.env.TOKEN_SECRET }));
+app.use(session({ secret: process.env.TOKEN_SECRET , resave: true, saveUninitialized: true}));
 
 /**
  * parse requests of content-type - application/json
