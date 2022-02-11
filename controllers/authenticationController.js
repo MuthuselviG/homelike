@@ -17,7 +17,7 @@ exports.signupUser = async (req, res) => {
    
         logger.info("Created new account!");
         // signing options
-        var signOptions = {
+        let signOptions = {
             expiresIn: process.env.TOKEN_LIFE
         };
 
@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
             logger.info("Password matches ? " + isMatch);
             if (isMatch) {
                 // signing options
-                var signOptions = {
+                let signOptions = {
                     expiresIn: process.env.TOKEN_LIFE
                 };
                 req.session.user = user;

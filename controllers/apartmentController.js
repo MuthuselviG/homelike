@@ -5,7 +5,7 @@
 const User = require("../models/userModel");
 const Apartment = require("../models/apartmentModel");
 const logger = require("../config/logger");
-var session = require("express-session");
+const session = require("express-session");
 
 /**
 * this method is to add apartment
